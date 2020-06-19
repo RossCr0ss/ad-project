@@ -1,13 +1,17 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App'
 import router from './router'
-import vuetify from './plugins/vuetify'
-import '@babel/polyfill'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 
+/* eslint-disable no-new */
 new Vue({
+  el: '#app',
   router,
-  vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  components: { App },
+  template: '<App/>'
+})

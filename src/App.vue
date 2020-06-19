@@ -1,60 +1,92 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
+    <v-navigation-drawer 
+      temporary 
+      app 
+      v-model="drawer"
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <v-list>
+        <v-list-tile 
+          :to="link.url"
+          v-for="link of links"
+          :key="link.title"
+        >
+          <v-list-tile-action>
+            <v-icon>{{link.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="link.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
+    <v-toolbar app dark color="primary">
+      <v-toolbar-side-icon 
+        @click="drawer = !drawer"
+        class="hidden-md-and-up"
+      />
+      <v-toolbar-title>Ad application</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn
+          flat
+          v-for="link in links"
+          :key="link.title"
+          :to="link.url"
+        >
+          <v-icon left>{{link.icon}}</v-icon>
+          {{link.title}}
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>fas fa-external-link-alt</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+    <!-- Sizes your content based upon application components -->
     <v-content>
-      <HelloWorld/>
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
     </v-content>
+
+    <!-- <v-footer app /> -->
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld
-  },
-
-  data: () => ({
-    //
-  })
+  data () {
+    return {
+      drawer: false,
+      links: [
+        {
+          title: 'Login',
+          icon: 'lock',
+          url: '/login'
+        },
+        {
+          title: 'Registration',
+          icon: 'face',
+          url: '/registration'
+        },
+        {
+          title: 'Orders',
+          icon: 'bookmark_border',
+          url: '/orders'
+        },
+        {
+          title: 'New ad',
+          icon: 'note_add',
+          url: '/new'
+        },
+        {
+          title: 'My ads',
+          icon: 'list',
+          url: '/list'
+        }
+      ]
+    }
+  }
 }
 </script>
