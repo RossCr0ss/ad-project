@@ -1,8 +1,54 @@
 <template>
-  <v-container>
-    <v-layout row>
-      <v-flex xs12>
-        <h1>Registration</h1>
+  <v-container fill-height fluid>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md6>
+        <v-card class="elevation-12">
+          <v-toolbar color="primary" dark>
+            <v-toolbar-title>Registration form</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-text-field
+                label="Email"
+                name="email"
+                prepend-icon="person"
+                :rules="emailRules"
+                type="email"
+                v-model="email"
+              ></v-text-field>
+              <v-text-field
+                id="password"
+                label="Password"
+                name="password"
+                prepend-icon="lock"
+                :rules="passwordRules"
+                type="password"
+                v-model="password"
+              ></v-text-field>
+              <v-text-field
+                id="confirm-password"
+                label="Confirm Password"
+                name="confirm-password"
+                prepend-icon="lock"
+                :rules="confirmPasswordRules"
+                type="password"
+                v-model="confirmPassword"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              @click="onSubmit"
+              :disabled="!valid"
+            >Create account</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-flex>
     </v-layout>
   </v-container>
@@ -11,7 +57,35 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      valid: false,
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ],
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 6) || 'Password must be bigger or equal than 6 characters'
+      ],
+      confirmPasswordRules: [
+        v => !!v || 'Password is required',
+        v => v === this.password || 'Password must match'
+      ]
+    }
+  },
+  methods: {
+    onSubmit () {
+      if (this.$refs.form.validate()) {
+        const user = {
+          email: this.email,
+          password: this.password
+        }
+        console.log(user)
+      }
+    }
   }
 }
 </script>
