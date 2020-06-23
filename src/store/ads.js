@@ -38,8 +38,17 @@ export default {
       }
     ]
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    createAd (state, payload) {
+      state.ads.push(payload)
+    }
+  },
+  actions: {
+    createAd (context, payload) {
+      payload.id = 'f3'
+      context.commit('createAd', payload)
+    }
+  },
   getters: {
     ads (state) {
       return state.ads
@@ -51,6 +60,11 @@ export default {
     },
     myAds (state) {
       return state.ads
+    },
+    adById (state) {
+      return adId => {
+        return state.ads.find(ad => ad.id === adId)
+      }
     }
   }
 }

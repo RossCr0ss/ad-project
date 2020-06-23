@@ -74,9 +74,10 @@ export default {
         const ad = {
           title: this.title,
           description: this.description,
-          promo: this.promo
+          promo: this.promo,
+          imageSrc: 'https://vuejs.org/images/logo.png'
         }
-        console.log(ad)
+        this.$store.dispatch('createAd', ad)
       }
     }
   }

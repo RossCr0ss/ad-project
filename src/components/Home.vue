@@ -39,7 +39,6 @@
                 <h3 class="headline mb-0">{{ad.title}}</h3>
                 <div>{{ad.description}}</div>
               </div>
-              Top western road trips
             </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
