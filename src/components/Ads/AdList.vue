@@ -5,14 +5,14 @@
         <h1 class="text--secondary mb-3">My ads</h1>
         <v-card
           class="elevation-10 mb-3"
-          v-for="ad in ads"
+          v-for="ad in myAds"
           :key="ad.id"
         >
           <v-layout row>
             <v-flex xs4>
               <v-card-media
                 :src="ad.imageSrc"
-                height="160\px"
+                height="160px"
               ></v-card-media>
             </v-flex>
             <v-flex xs8>
@@ -24,7 +24,7 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   class="info"
-                  :to="'ad' + ad.id"
+                  :to="'/ad/' + ad.id"
                 >Open</v-btn>
               </v-card-actions>
             </v-flex>
@@ -38,23 +38,11 @@
 <script>
 export default {
   data () {
-    return {
-      ads: [
-        {
-          title: 'Fisrt Ad',
-          description: 'Hello, I am description',
-          promo: false,
-          imageSrc: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          id: '1'
-        },
-        {
-          title: 'Second Ad',
-          description: 'Hello I am description',
-          promo: true,
-          imageSrc: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          id: '2'
-        }
-      ]
+    return {}
+  },
+  computed: {
+    myAds () {
+      return this.$store.getters.myAds
     }
   }
 }
